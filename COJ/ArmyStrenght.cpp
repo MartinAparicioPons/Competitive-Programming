@@ -10,13 +10,11 @@ int main () {
 	for (int i = 0; i < t; i++){
 		cin >> ng >> nm;
 		mg = mm = 0;
-        for (int i = 0; i < ng; i++)
-        {
+        for (int i = 0; i < ng; i++){
             cin >> n;
             mg = max(n, mg);
         }
-        for (int i = 0; i < nm; i++)
-        {
+        for (int i = 0; i < nm; i++){
             cin >> n;
             mm = max(n, mm);
         }
