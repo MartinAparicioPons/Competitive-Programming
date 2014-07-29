@@ -53,7 +53,7 @@ int main () {
 	while (scd(n), n != 0){
 		res = true;
 		scd(l);
-		vector<int> nodos, ady[300];
+		vector<int> nodos, ady[30010];
 		for (i = 0; i < l; i++){
 			scd2(e1, e2);
 			ady[e1].push_back(e2);
@@ -78,8 +78,8 @@ int main () {
 				}
 			}
 		}
-	if (res) printf("BICOLORABLE.\n");
-	else printf("NOT BICOLORABLE.\n");
+	if (res) printf("BICOLORABLE\n");
+	else printf("NOT BICOLORABLE\n");
 	}
 	return 0;
 }	

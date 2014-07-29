@@ -22,13 +22,13 @@
 #define prd2(x,y) printf("%d %d\n", x,y)
 #define dprd2(x,y) printf("||%d | %d\n", x,y)
 #define prnl() printf("\n")
+#define pr(x) printf(x)
 #define prc(c) printf("%c\n", c)
 #define fora(i,a,n) for(i = a; i < n; i++)
 #define for0(i,n) for(i = 0; i < n; i++)
 #define for1(i,n) for(i = 1; i <= n; i++)
 #define cin1(a) cin >> a
 #define cin2(a, b) cin >> a >> b
-#define pr(a) cout << a
 #define _F first
 #define _S second
 #define _MP make_pair
@@ -47,41 +47,24 @@ typedef vector<iii> viii;
 typedef vector<string> vs;
 typedef vector< vector<int> > vvi;
 
-int main () {
-	int n, l, e2, e1, i, v, j, a;
-	bool res;
-	while (scd(n), n != 0){
-		res = true;
-		scd(l);
-		vector<int> nodos, ady[300];
-		for (i = 0; i < l; i++){
-			scd2(e1, e2);
-			ady[e1].push_back(e2);
-			ady[e2].push_back(e1);
-			nodos.push_back(0);
+int main(){
+	int n, a, i;
+	pr("PERFECTION OUTPUT\n");
+	while(scd(n), n != 0){
+		for(a = 0, i = 1; i < n; i++){
+			if(n%i == 0) a+=i;
+			//dprd2(i, i%n);
 		}
-		queue<int> q;
-		q.push(0);
-		nodos[0] = 1;
-		while(!q.empty() && res){
-			v = q.front();
-			q.pop();
-			for(j = 0, a = ady[v].size(); res && j < a; j++){
-				if (nodos[ady[v][j]] == 0) {
-					nodos[ady[v][j]] = nodos[v] * (-1);
-					q.push(ady[v][j]);
-				} else {
-					if (nodos[ady[v][j]] == nodos[v]) {
-						res = false;
-						break;
-					}
-				}
-			}
+		//dprd(a);
+		if(a < n){
+			printf("%5d  DEFICIENT\n", n);
+		} else if(a == n){
+			printf("%5d  PERFECT\n", n);
+		} else {
+			printf("%5d  ABUNDANT\n", n);
 		}
-	if (res) printf("BICOLORABLE.\n");
-	else printf("NOT BICOLORABLE.\n");
 	}
-	return 0;
+	pr("END OF OUTPUT\n");
 }	
 
 

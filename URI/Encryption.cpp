@@ -28,7 +28,6 @@
 #define for1(i,n) for(i = 1; i <= n; i++)
 #define cin1(a) cin >> a
 #define cin2(a, b) cin >> a >> b
-#define pr(a) cout << a
 #define _F first
 #define _S second
 #define _MP make_pair
@@ -47,45 +46,28 @@ typedef vector<iii> viii;
 typedef vector<string> vs;
 typedef vector< vector<int> > vvi;
 
-int main () {
-	int n, l, e2, e1, i, v, j, a;
-	bool res;
-	while (scd(n), n != 0){
-		res = true;
-		scd(l);
-		vector<int> nodos, ady[300];
-		for (i = 0; i < l; i++){
-			scd2(e1, e2);
-			ady[e1].push_back(e2);
-			ady[e2].push_back(e1);
-			nodos.push_back(0);
-		}
-		queue<int> q;
-		q.push(0);
-		nodos[0] = 1;
-		while(!q.empty() && res){
-			v = q.front();
-			q.pop();
-			for(j = 0, a = ady[v].size(); res && j < a; j++){
-				if (nodos[ady[v][j]] == 0) {
-					nodos[ady[v][j]] = nodos[v] * (-1);
-					q.push(ady[v][j]);
-				} else {
-					if (nodos[ady[v][j]] == nodos[v]) {
-						res = false;
-						break;
-					}
-				}
+
+
+int main(){
+	int n, i, p;
+	string s;
+	scd(n);
+	getchar();
+	while(n--){
+		getline(cin, s);
+		p = s.size();
+		for0(i, p){
+			if((s[i] >= 'a' && s[i] <= 'z') || (s[i] >= 'A' && s[i] <= 'Z')){
+				s[i]+=3;
 			}
 		}
-	if (res) printf("BICOLORABLE.\n");
-	else printf("NOT BICOLORABLE.\n");
+		string z(s.rbegin(), s.rend());
+		for(i = (p/2); i < p; i++){
+			z[i]--;
+		}
+		cout << z << endl;
 	}
-	return 0;
-}	
-
-
-
+}
 
 
 

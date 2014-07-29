@@ -28,7 +28,6 @@
 #define for1(i,n) for(i = 1; i <= n; i++)
 #define cin1(a) cin >> a
 #define cin2(a, b) cin >> a >> b
-#define pr(a) cout << a
 #define _F first
 #define _S second
 #define _MP make_pair
@@ -47,49 +46,54 @@ typedef vector<iii> viii;
 typedef vector<string> vs;
 typedef vector< vector<int> > vvi;
 
-int main () {
-	int n, l, e2, e1, i, v, j, a;
-	bool res;
-	while (scd(n), n != 0){
-		res = true;
-		scd(l);
-		vector<int> nodos, ady[300];
-		for (i = 0; i < l; i++){
-			scd2(e1, e2);
-			ady[e1].push_back(e2);
-			ady[e2].push_back(e1);
-			nodos.push_back(0);
-		}
-		queue<int> q;
-		q.push(0);
-		nodos[0] = 1;
-		while(!q.empty() && res){
-			v = q.front();
-			q.pop();
-			for(j = 0, a = ady[v].size(); res && j < a; j++){
-				if (nodos[ady[v][j]] == 0) {
-					nodos[ady[v][j]] = nodos[v] * (-1);
-					q.push(ady[v][j]);
-				} else {
-					if (nodos[ady[v][j]] == nodos[v]) {
-						res = false;
-						break;
-					}
-				}
-			}
-		}
-	if (res) printf("BICOLORABLE.\n");
-	else printf("NOT BICOLORABLE.\n");
+
+int main(){
+	int n, i, j, k, a[100004], ok=0;
+	bool b[100004];
+	scd(n);
+	for1(i, n){
+		scd(k);
+		a[i] = k;
+		//dprd2(i, b[i]);
 	}
-	return 0;
-}	
-
-
-
-
-
-
-
-
+	vi v(a+1, a+n+1);
+	sort(v.begin(), v.end());
+	for(i = 1; i <= n; i++){
+		if(a[i] != v[i-1]) b[i]=false;
+		else b[i] = true;
+		//dprd2(a[i], b[i]);
+	}
+	for(i = 2; i < n; i++){
+		if(!b[i-1] && b[i] && !b[i+1]) b[i] = false;
+	}
+	for(i = 1, j = 0; i <= n;){
+		while(b[i] && i <= n) i++;
+		if(!b[i] && i <= n){
+			//dprd2(i, j);
+			ok++;
+			j = i;
+		}
+		while(!b[i] && i <= n){
+			i++;
+		}
+	}
+	if(ok == 0 || n == 1){
+		printf("yes 1 1\n");
+		return 0;
+	}
+	if(ok > 1){
+		printf("no\n");
+		return 0;
+	}
+	for(i = j; !b[i] && i <= n; i++);
+	reverse(a+j, a+i);
+	for(k = 1; k <= n; k++){
+		if(a[k] != v[k-1]){
+			printf("no\n");
+			return 0;
+		}
+	}
+	printf("yes %d %d\n", j, i-1);
+}
 
 

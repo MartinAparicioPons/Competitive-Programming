@@ -28,7 +28,6 @@
 #define for1(i,n) for(i = 1; i <= n; i++)
 #define cin1(a) cin >> a
 #define cin2(a, b) cin >> a >> b
-#define pr(a) cout << a
 #define _F first
 #define _S second
 #define _MP make_pair
@@ -47,45 +46,26 @@ typedef vector<iii> viii;
 typedef vector<string> vs;
 typedef vector< vector<int> > vvi;
 
-int main () {
-	int n, l, e2, e1, i, v, j, a;
-	bool res;
-	while (scd(n), n != 0){
-		res = true;
-		scd(l);
-		vector<int> nodos, ady[300];
-		for (i = 0; i < l; i++){
-			scd2(e1, e2);
-			ady[e1].push_back(e2);
-			ady[e2].push_back(e1);
-			nodos.push_back(0);
+
+
+int main(){
+	int t, i;
+	string s;
+	scd(t);
+	while(t--){
+		cin >> s;
+		if(s.size() == 5){
+			prd(3);
+		} else {
+			i = 0;
+			if(s[0] == 't') i++;
+			if(s[1] == 'w') i++;
+			if(s[2] == 'o') i++;
+			if(i >= 2)  prd(2);
+			else 		prd(1);
 		}
-		queue<int> q;
-		q.push(0);
-		nodos[0] = 1;
-		while(!q.empty() && res){
-			v = q.front();
-			q.pop();
-			for(j = 0, a = ady[v].size(); res && j < a; j++){
-				if (nodos[ady[v][j]] == 0) {
-					nodos[ady[v][j]] = nodos[v] * (-1);
-					q.push(ady[v][j]);
-				} else {
-					if (nodos[ady[v][j]] == nodos[v]) {
-						res = false;
-						break;
-					}
-				}
-			}
-		}
-	if (res) printf("BICOLORABLE.\n");
-	else printf("NOT BICOLORABLE.\n");
 	}
-	return 0;
-}	
-
-
-
+}
 
 
 

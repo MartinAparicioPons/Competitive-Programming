@@ -26,9 +26,6 @@
 #define fora(i,a,n) for(i = a; i < n; i++)
 #define for0(i,n) for(i = 0; i < n; i++)
 #define for1(i,n) for(i = 1; i <= n; i++)
-#define cin1(a) cin >> a
-#define cin2(a, b) cin >> a >> b
-#define pr(a) cout << a
 #define _F first
 #define _S second
 #define _MP make_pair
@@ -47,42 +44,26 @@ typedef vector<iii> viii;
 typedef vector<string> vs;
 typedef vector< vector<int> > vvi;
 
-int main () {
-	int n, l, e2, e1, i, v, j, a;
-	bool res;
-	while (scd(n), n != 0){
-		res = true;
-		scd(l);
-		vector<int> nodos, ady[300];
-		for (i = 0; i < l; i++){
-			scd2(e1, e2);
-			ady[e1].push_back(e2);
-			ady[e2].push_back(e1);
-			nodos.push_back(0);
+#define MOD 1000000007
+
+int main(){
+	int i, n, j;
+	ll cat[5011];
+	memset(cat, 0, sizeof cat);
+	cat[0] = 1;
+	cat[1] = 1;
+	for(i = 2; i <= 5000; i++){
+		for(j = 1; j <= i; j++){
+			cat[i] = (cat[i]%MOD + (cat[j-1] * cat[i-j])%MOD)%MOD;
 		}
-		queue<int> q;
-		q.push(0);
-		nodos[0] = 1;
-		while(!q.empty() && res){
-			v = q.front();
-			q.pop();
-			for(j = 0, a = ady[v].size(); res && j < a; j++){
-				if (nodos[ady[v][j]] == 0) {
-					nodos[ady[v][j]] = nodos[v] * (-1);
-					q.push(ady[v][j]);
-				} else {
-					if (nodos[ady[v][j]] == nodos[v]) {
-						res = false;
-						break;
-					}
-				}
-			}
-		}
-	if (res) printf("BICOLORABLE.\n");
-	else printf("NOT BICOLORABLE.\n");
 	}
-	return 0;
-}	
+	scd(j);
+	while(j--){
+		scd(n);
+		if(n <= 1) prd(0);
+		else printf("%lld\n", cat[n-1]);
+	}
+}
 
 
 

@@ -28,7 +28,6 @@
 #define for1(i,n) for(i = 1; i <= n; i++)
 #define cin1(a) cin >> a
 #define cin2(a, b) cin >> a >> b
-#define pr(a) cout << a
 #define _F first
 #define _S second
 #define _MP make_pair
@@ -47,43 +46,28 @@ typedef vector<iii> viii;
 typedef vector<string> vs;
 typedef vector< vector<int> > vvi;
 
-int main () {
-	int n, l, e2, e1, i, v, j, a;
-	bool res;
-	while (scd(n), n != 0){
-		res = true;
-		scd(l);
-		vector<int> nodos, ady[300];
-		for (i = 0; i < l; i++){
-			scd2(e1, e2);
-			ady[e1].push_back(e2);
-			ady[e2].push_back(e1);
-			nodos.push_back(0);
-		}
-		queue<int> q;
-		q.push(0);
-		nodos[0] = 1;
-		while(!q.empty() && res){
-			v = q.front();
-			q.pop();
-			for(j = 0, a = ady[v].size(); res && j < a; j++){
-				if (nodos[ady[v][j]] == 0) {
-					nodos[ady[v][j]] = nodos[v] * (-1);
-					q.push(ady[v][j]);
-				} else {
-					if (nodos[ady[v][j]] == nodos[v]) {
-						res = false;
-						break;
-					}
+int main(){
+	int t, T, n, a, b, c, d, i;
+	cin >> T;
+	while(T--){
+		cin >> t >> n;
+		for0(i, t){
+			cin >> a >> b >> c >> d;
+			if((a+b)%2 != (c+d)%2 || (a > n || b > n || c > n || d > n))
+				printf("no move\n");
+			else {
+				if(a == c && b == d)
+					printf("0\n");
+				else {
+					if((abs(a-c) == abs(b-d)) || (a+b == c+d))
+						printf("1\n");
+					else
+						printf("2\n");
 				}
 			}
 		}
-	if (res) printf("BICOLORABLE.\n");
-	else printf("NOT BICOLORABLE.\n");
 	}
-	return 0;
-}	
-
+}
 
 
 

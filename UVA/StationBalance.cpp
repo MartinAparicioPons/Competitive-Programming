@@ -47,42 +47,41 @@ typedef vector<iii> viii;
 typedef vector<string> vs;
 typedef vector< vector<int> > vvi;
 
-int main () {
-	int n, l, e2, e1, i, v, j, a;
-	bool res;
-	while (scd(n), n != 0){
-		res = true;
-		scd(l);
-		vector<int> nodos, ady[300];
-		for (i = 0; i < l; i++){
-			scd2(e1, e2);
-			ady[e1].push_back(e2);
-			ady[e2].push_back(e1);
-			nodos.push_back(0);
+
+int main(){
+	int c, s, i, a[15], T=1;
+	ii b[15];
+	double im, pr;
+	while(scd2(c, s) != EOF){
+		pr = 0.0;
+		for0(i, s){
+			scd(a[i]);
+			pr += a[i];
 		}
-		queue<int> q;
-		q.push(0);
-		nodos[0] = 1;
-		while(!q.empty() && res){
-			v = q.front();
-			q.pop();
-			for(j = 0, a = ady[v].size(); res && j < a; j++){
-				if (nodos[ady[v][j]] == 0) {
-					nodos[ady[v][j]] = nodos[v] * (-1);
-					q.push(ady[v][j]);
-				} else {
-					if (nodos[ady[v][j]] == nodos[v]) {
-						res = false;
-						break;
-					}
-				}
-			}
+		pr /= c;
+		while(s < 2*c){
+			a[s++] = 0;
 		}
-	if (res) printf("BICOLORABLE.\n");
-	else printf("NOT BICOLORABLE.\n");
+		sort(a, a+s);
+		for(im = 0, i = 0; 2*i < s; i++){
+			b[i]._F = a[i];
+			b[i]._S = a[s - 1 - i];
+			im += fabs((double)(b[i]._F + b[i]._S) - pr);
+		}
+		printf("Set #%d\n", T++);
+		for(i = 0; i < c; i++){
+			printf(" %d:", i);
+			if(b[i]._F != 0)
+				printf(" %d", b[i]._F);
+			if(b[i]._S != 0)
+				printf(" %d\n", b[i]._S);
+			else
+				prnl();
+		}
+		printf("IMBALANCE = %.5f\n\n", im);
 	}
-	return 0;
-}	
+	
+}
 
 
 

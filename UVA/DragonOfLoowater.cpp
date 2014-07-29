@@ -47,42 +47,45 @@ typedef vector<iii> viii;
 typedef vector<string> vs;
 typedef vector< vector<int> > vvi;
 
-int main () {
-	int n, l, e2, e1, i, v, j, a;
-	bool res;
-	while (scd(n), n != 0){
-		res = true;
-		scd(l);
-		vector<int> nodos, ady[300];
-		for (i = 0; i < l; i++){
-			scd2(e1, e2);
-			ady[e1].push_back(e2);
-			ady[e2].push_back(e1);
-			nodos.push_back(0);
+
+int main(){
+	int a, b, i, j, d;
+	bool ok;
+	vector<int> v, c;
+	vector<int>::iterator it;
+	while(scd2(a,b), a || b){
+		v.clear();
+		c.clear();
+		for0(i, a){
+			scd(d);
+			v.push_back(d);
 		}
-		queue<int> q;
-		q.push(0);
-		nodos[0] = 1;
-		while(!q.empty() && res){
-			v = q.front();
-			q.pop();
-			for(j = 0, a = ady[v].size(); res && j < a; j++){
-				if (nodos[ady[v][j]] == 0) {
-					nodos[ady[v][j]] = nodos[v] * (-1);
-					q.push(ady[v][j]);
-				} else {
-					if (nodos[ady[v][j]] == nodos[v]) {
-						res = false;
-						break;
-					}
-				}
+		for0(i, b){
+			scd(d);
+			c.push_back(d);
+		}
+		if(b < a){
+			printf("Loowater is doomed!\n");
+			continue;
+		}
+		sort(v.begin(), v.end());
+		sort(c.begin(), c.end());
+		for(ok = true, d = 0, i = 0; i < a; i++){
+			it = lower_bound(c.begin(), c.end(), v[i]);
+			if(it == c.end()){
+				ok = false;
+				break;
 			}
+			d += *it;
+			c.erase(it);
 		}
-	if (res) printf("BICOLORABLE.\n");
-	else printf("NOT BICOLORABLE.\n");
+		if(ok){
+			prd(d);
+		} else {
+			printf("Loowater is doomed!\n");
+		}
 	}
-	return 0;
-}	
+}
 
 
 

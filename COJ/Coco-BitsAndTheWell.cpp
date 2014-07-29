@@ -12,8 +12,8 @@
 #include <cstring>
 #include <sstream>
 #include <cstdlib>
-#include <locale>
 #include <cmath>
+#include <locale>
 #define scd(x) scanf("%d", &x)
 #define scc(x) scanf("%c", &x)
 #define scd2(x,y) scanf("%d %d", &x, &y)
@@ -24,11 +24,8 @@
 #define prnl() printf("\n")
 #define prc(c) printf("%c\n", c)
 #define fora(i,a,n) for(i = a; i < n; i++)
-#define for0(i,n) for(i = 0; i < n; i++)
+#define for0(i,n) fora(i, 0, n)
 #define for1(i,n) for(i = 1; i <= n; i++)
-#define cin1(a) cin >> a
-#define cin2(a, b) cin >> a >> b
-#define pr(a) cout << a
 #define _F first
 #define _S second
 #define _MP make_pair
@@ -40,49 +37,24 @@ using namespace std;
 typedef vector<int> vi;
 typedef pair<int, int> ii;
 typedef long long ll;
-typedef unsigned long long ull;
 typedef pair<int, ii> iii;
 typedef vector<ii> vii;
 typedef vector<iii> viii;
 typedef vector<string> vs;
 typedef vector< vector<int> > vvi;
 
-int main () {
-	int n, l, e2, e1, i, v, j, a;
-	bool res;
-	while (scd(n), n != 0){
-		res = true;
-		scd(l);
-		vector<int> nodos, ady[300];
-		for (i = 0; i < l; i++){
-			scd2(e1, e2);
-			ady[e1].push_back(e2);
-			ady[e2].push_back(e1);
-			nodos.push_back(0);
-		}
-		queue<int> q;
-		q.push(0);
-		nodos[0] = 1;
-		while(!q.empty() && res){
-			v = q.front();
-			q.pop();
-			for(j = 0, a = ady[v].size(); res && j < a; j++){
-				if (nodos[ady[v][j]] == 0) {
-					nodos[ady[v][j]] = nodos[v] * (-1);
-					q.push(ady[v][j]);
-				} else {
-					if (nodos[ady[v][j]] == nodos[v]) {
-						res = false;
-						break;
-					}
-				}
-			}
-		}
-	if (res) printf("BICOLORABLE.\n");
-	else printf("NOT BICOLORABLE.\n");
+const double pi = 2*acos(0);
+
+int main(){
+	int t;
+	double r, l;
+	scd(t);
+	while(t--){
+		scanf("%lf", &l);
+		r = (l*l) - ((l/2.0)*(l/2.0)*pi);
+		printf("%.2lf\n", r);
 	}
-	return 0;
-}	
+}
 
 
 

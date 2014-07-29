@@ -22,13 +22,13 @@
 #define prd2(x,y) printf("%d %d\n", x,y)
 #define dprd2(x,y) printf("||%d | %d\n", x,y)
 #define prnl() printf("\n")
+#define pr(x) printf(x)
 #define prc(c) printf("%c\n", c)
 #define fora(i,a,n) for(i = a; i < n; i++)
 #define for0(i,n) for(i = 0; i < n; i++)
 #define for1(i,n) for(i = 1; i <= n; i++)
 #define cin1(a) cin >> a
 #define cin2(a, b) cin >> a >> b
-#define pr(a) cout << a
 #define _F first
 #define _S second
 #define _MP make_pair
@@ -47,42 +47,26 @@ typedef vector<iii> viii;
 typedef vector<string> vs;
 typedef vector< vector<int> > vvi;
 
-int main () {
-	int n, l, e2, e1, i, v, j, a;
-	bool res;
-	while (scd(n), n != 0){
-		res = true;
-		scd(l);
-		vector<int> nodos, ady[300];
-		for (i = 0; i < l; i++){
-			scd2(e1, e2);
-			ady[e1].push_back(e2);
-			ady[e2].push_back(e1);
-			nodos.push_back(0);
+int main(){
+	int a[1001], r, b, i, t, n;
+	double prom;
+	scd(t);
+	while(t--){
+		scd(n);
+		prom = 0.0;
+		r = 0.0;
+		for0(i, n){
+			scd(a[i]);
+			prom += (double)(a[i]);
 		}
-		queue<int> q;
-		q.push(0);
-		nodos[0] = 1;
-		while(!q.empty() && res){
-			v = q.front();
-			q.pop();
-			for(j = 0, a = ady[v].size(); res && j < a; j++){
-				if (nodos[ady[v][j]] == 0) {
-					nodos[ady[v][j]] = nodos[v] * (-1);
-					q.push(ady[v][j]);
-				} else {
-					if (nodos[ady[v][j]] == nodos[v]) {
-						res = false;
-						break;
-					}
-				}
-			}
+		prom = (prom/(double) n);
+		r = 0;
+		for0(i, n){
+			if((double)a[i] > prom) r++;
 		}
-	if (res) printf("BICOLORABLE.\n");
-	else printf("NOT BICOLORABLE.\n");
+		printf("%.3lf%%\n", (((double)r)/((double)n))*100.0);
 	}
-	return 0;
-}	
+}
 
 
 
