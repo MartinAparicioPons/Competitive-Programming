@@ -1,30 +1,33 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int main() {
-	int n, a[1100], d[1100], i, j, b, res = 0, c, aux;
+int main(){
+	int n, i, a[1010], g1, g2, r, b[1010];
+	g1 = g2 = 0;
 	cin >> n;
 	for(i = 0; i < n; i++){
 		cin >> a[i];
 	}
-	sort(a, a+n);
+	sort(a, a+n, greater<int>());
 	for(i = 0; i < n; i+=2){
-		d[i/2] = a[i+1] - a[i];
+		b[i/2] = a[i] - a[i+1];
 	}
-	sort(d, d+(n/2));
-	if(d[(n/2)-1] == 0)
-		printf("-1\n");
-	else {
-		i = 0; j = (n/2) - 1; b = 0; c = 0;
-		while(i <= j){
-			if(c > b + d[i]){
-				b += d[i];
-				res++; i++;
-			} else {
-				c += d[j];
-				j--;
-			}
+	sort(b, b+(n/2), greater<int>());
+	for(i = 0; i < n; i++){
+		g1 += b[i];
+	}
+	if(g1 == 0){
+		cout << -1 << endl;
+		return 0;
+	}
+	for(i = 0; i*2 < n; i++){
+		g2 += b[i];
+		g1 -= b[i];
+		if(g1 < g2){
+			cout << (n/2)-(i+1) << endl;
+			return 0;
 		}
-		cout << res << endl;
 	}
+	cout << 0 << endl;
+	return 0;
 }

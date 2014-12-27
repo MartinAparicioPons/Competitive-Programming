@@ -10,7 +10,7 @@ int main() {
 	}
 	b[n+1] = true;
 	for(i = n-1; i > 0; i--){
-		if(b[a[i]+i+1]) b[i] = true;
+		if(a[i] + i <= n && b[a[i]+i+1]) b[i] = true;
 	}
 	for(i = 2; i <= n+1; i++){
 		if(b[i]){

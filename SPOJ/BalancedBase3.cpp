@@ -1,39 +1,43 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int main() {
-	int T, n, i, j;
-	char b3[1000];
+int main(){
+	int T, a, i, aux;
+	string b;
 	cin >> T;
-	for(;T--;){
-		cin >> n;
+	while(T--){
+		cin >> a;
+		if(a == 0){
+			cout << 0 << endl;
+			continue;
+		}
+		
+		b = "";
+		aux = a;
+		while(aux > 0){
+			b += '0';
+			aux /= 3;
+		}
+		b += '0';
+		aux = a;
 		i = 0;
-		while(n){
-			b3[i++] = n%3;
-			n/=3;
+		while(aux > 0){
+			b[i] += (aux%3);
+			if(b[i] == '3'){
+				b[i+1]++;
+				b[i] = '0';
+			} else if(b[i] == '2'){
+				b[i+1]++;
+				b[i] = '-';
+			} else if(b[i] == '1'){
+				b[i] = '+';
+			}
+			i++;
+			aux /= 3;
 		}
-		b3[i] = 0;
-		for(j = 0; j < i; j++){
-			if(b3[j] == 2){
-				b3[j] = -1;
-				b3[j+1]++;
-			} else if(b3[j] == 3){
-				b3[j] = 0;
-				b3[j+1]++;
-			}
-		}
-		if(b3[i]) printf("+");
-		for(j = i-1; j >= 0; j--){
-			if(b3[j] == -1){
-				printf("-");
-			}
-			if(b3[j] == 0){
-				printf("0");
-			}
-			if(b3[j] == 1){
-				printf("+");
-			}
-		}
-		printf("\n");
+		if(b[i] == '1') b[i] = '+';
+		else if(b[i] == '0') b = b.substr(0, b.size() - 1);
+		string s(b.rbegin(), b.rend());
+		cout << s << endl;
 	}
 }
