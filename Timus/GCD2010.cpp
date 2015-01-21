@@ -10,18 +10,15 @@ using namespace std;
 const int MAXN = 100001;
 
 int T[4*MAXN], N, Next;
-map<int, pair<int, int> > M;
+map<int, pair<int, int> > M;	// {valor, cantidad, posicion}
 
 int join(int a, int b){
-	if(!a && !b) return 0;
-	if(!a) return b;
-	if(!b) return a;
 	return __gcd(a, b);
 }
 
 void init(int n){
 	N = n;
-	Next = N-1;
+	Next = 0;
 }
 
 int mid;
@@ -30,24 +27,24 @@ void modify(int a, int q, int root, int l, int r){
 		T[root] = q;
 	} else {
 		mid = (l+r)/2;
-		if(a <= mid) modify(a, q, (2*root)+1, l, mid);
-		else 		 modify(a, q, (2*root)+2, mid+1, r);
-		T[root] = join(T[(2*root)+1], T[(2*root)+2]);
+		if(a <= mid) modify(a, q, 2*root, l, mid);
+		else 		 modify(a, q, (2*root)+1, mid+1, r);
+		T[root] = join(T[2*root], T[(2*root)+1]);
 	}
 }
 
 void modify(int a, int q){
-	modify(a, q, 0, 0, N-1);
+	modify(a, q, 1, 0, N-1);
 }
 
 int query_add(int q){
 	if(M.find(q) == M.end()){
 		modify(Next, q);
-		M[q] = make_pair(1, Next--);
+		M[q] = make_pair(1, Next++);
 	} else {
 		M[q].first++;
 	}
-	return T[0];
+	return T[1];
 }
 
 pair<int, int> aux;
@@ -59,7 +56,7 @@ int query_erase(int q){
 	} else {
 		M[q].first--;
 	}
-	return (!M.empty())?T[0]:1;
+	return (!M.empty())?T[1]:1;
 }
 
 // ---
