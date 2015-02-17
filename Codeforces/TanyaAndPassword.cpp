@@ -14,16 +14,12 @@ const int MAXN = 400010;
 
 int N[MAXN];
 vector<int> E[MAXN], res;
-set< pair<int, int> > vis;
 
 void dfs(int a){
 	int x;
 	while(N[a] < E[a].size()){
 		x = N[a]++;
-		if(!vis.count(make_pair(a,x))){
-			vis.insert(make_pair(a,x));
-			dfs(E[a][x]);
-		}
+		dfs(E[a][x]);
 	}
 	res.push_back(a);
 }
@@ -45,7 +41,7 @@ int main(){
 		v.insert(b);
 	}
 	for(auto x : v){
-		if(D[x] > 0){			
+		if(D[x] > 0){
 			a = x;
 			c += D[x];
 		}
