@@ -1,15 +1,13 @@
 #include <bits/stdc++.h>
-using namespace std;
-#define DEB(x) cerr << "# " << (#x) << ": " << x << endl;
+#define DEB(x) cerr << "#" << (#x) << ": " << (x) << endl
 #define F first
 #define S second
 
-typedef unsigned long long ull;
+using namespace std;
 typedef long long ll;
-typedef pair<int, int> ii;
-const int MAXN = 110;
-
-
+typedef pair<int, int> ii; typedef pair<int, ii> iii;
+typedef vector<int> vi;    typedef vector<ii> vii;
+const int MAXN = 1010;
 
 int res[MAXN][MAXN], mf, f, s, t, level[MAXN];
 vector<int> ady[MAXN];
@@ -58,47 +56,45 @@ int max_flow () {
 	return mf;
 }
 
-int main(){
-	ios_base::sync_with_stdio(0); cin.tie();
-	int T, tc = 1, n, m, i, a, b, c;
-	string S, Z;
-	map<string, int> M;
-	M["XS"] = 51;
-	M["S"] = 52;
-	M["M"] = 53;
-	M["L"] = 54;
-	M["XL"] = 55;
-	M["XXL"] = 56;
-	cin >> T;
-	s = 0; t = MAXN-1;
+int main(){        
+	ios_base::sync_with_stdio(0); cin.tie(0);
+	int a, b, i, j, T, n, m;
+	ii A[MAXN];
+	scanf("%d", &T);
 	while(T--){
-		cin >> n >> m;
-		n /= 6;
-		memset(res, 0, sizeof res);
+		scanf("%d %d", &n, &m);
+		s = 0; t = 1;
 		for(i = 0; i < MAXN; i++) ady[i].clear();
-		for(i = 1; i <= m+1; i++){
-			res[s][i] = 1;
+		memset(res, 0, sizeof res);
+		for(i = 2; i < n+2; i++){
+			scanf("%d:%d", &a, &b);
+			A[i].F = a*60+b;
+			scanf("%d:%d", &a, &b);
+			A[i].S = a*60+b;
+			
 			ady[s].push_back(i);
 			ady[i].push_back(s);
+			res[s][i] = 1;
 		}
-		for(i = 1; i <= m; i++){
-			cin >> S >> Z;
-			res[i][M[S]] = 1;
-			res[i][M[Z]] = 1;
-			ady[i].push_back(M[S]);
-			ady[i].push_back(M[Z]);
-			ady[M[S]].push_back(i);
-			ady[M[Z]].push_back(i);
-		}
-		for(i = 51; i <= 56; i++){
-			res[i][t] = n;
-			ady[i].push_back(t);
+		for(;i < m+n+2; i++){
+			scanf("%d:%d", &a, &b);
+			A[i].F = a*60+b;
+			scanf("%d:%d", &a, &b);
+			A[i].S = a*60+b;
+			
 			ady[t].push_back(i);
+			ady[i].push_back(t);
+			res[i][t] = 1;
 		}
-		
-		if(max_flow() == m)
-			cout << "YES\n";
-		else 
-			cout << "NO\n";
+		for(i = 2; i < n+2; i++){
+			for(j = n+2; j < m+n+2; j++){
+				if(A[i].F <= A[j].F && A[i].S >= A[j].S){
+					ady[i].push_back(j);
+					ady[j].push_back(i);
+					res[i][j] = 1;
+				}
+			}
+		}
+		printf("%d\n", max_flow());
 	}
 }
