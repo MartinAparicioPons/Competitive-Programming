@@ -15,22 +15,47 @@ typedef long long ll;         typedef pair<int, int> ii;
 typedef pair<int, ii> iii;    typedef vector<int> vi;
 typedef vector<ii> vii;       typedef vector<vi> vvi;
 typedef vector<ll> vll;       typedef pair<string, string> ss;
-const static int MAXN = 500400;
+const static int MAXN = 1000000;
 
-int A[MAXN];
+bool C[MAXN];
+vi P;
+
+void sieve(){
+	P.clear();
+	memset(C, 0, sizeof C);
+	P.push_back(2);
+	int i, j;
+	for(i = 3; i < MAXN; i+=2) if(!C[i]) {
+		P.push_back(i);
+		for(j = i+i; j < MAXN; j+=i){
+			C[j] = true;
+		}
+	}
+}
+
+int divisors(int n){
+	int p = 0, c, d = 1;
+	while(n > 1){
+		c = 1;
+		while(n % P[p] == 0) {n /= P[p]; c++;}
+		p++;
+		d *= c;
+	}
+	return d;
+}
 
 int main() {
 	ios_base::sync_with_stdio(0); cin.tie(0);
-	string S;
-	int q, i, j, n, k;
-	cin >> S; n = S.size();
-	A[0] = 0;
-	for(i = 0; i < n-1; i++){
-		A[i+1] = A[i] + (S[i] == S[i+1]);
-	}
-	cin >> q;
-	while(q--){
-		cin >> j >> k; j--;k--;
-		cout << A[k] - A[j] << endl;
+	int n, t, m;
+	sieve();
+	cin >> t;
+	while(t--){
+		cin >> n;
+		int i = 1;
+		for(m = 1; divisors(m) <= n; m += ++i);
+		cout << m << endl;
 	}
 }
+
+
+
