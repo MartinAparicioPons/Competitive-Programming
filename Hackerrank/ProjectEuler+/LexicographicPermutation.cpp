@@ -26,6 +26,7 @@ ll anagrams(){
 	for(int i = 0; i < MX; i++){
 		t += C[i];
 		d *= F[C[i]];
+		DB(d);DB(t);DB(C[i])EL;
 	}
 	//DB(t);DB(d);
 	return F[t] / d;
