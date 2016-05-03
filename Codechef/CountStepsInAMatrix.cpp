@@ -15,22 +15,30 @@ typedef long long ll;         typedef pair<int, int> ii;
 typedef pair<int, ii> iii;    typedef vector<int> vi;
 typedef vector<ii> vii;       typedef vector<vi> vvi;
 typedef vector<ll> vll;       typedef pair<string, string> ss;
-const static int MAXN = 500400;
+const static int MAXN = 5000006;
 
-int A[MAXN];
+ll dist(ii a, ii b){
+	return abs(a.X - b.X) + abs(a.Y - b.Y);
+}
+
+ii M[MAXN];
 
 int main() {
-	ios_base::sync_with_stdio(0); cin.tie(0);
-	string S;
-	int q, i, j, n, k;
-	cin >> S; n = S.size();
-	A[0] = 0;
-	for(i = 0; i < n-1; i++){
-		A[i+1] = A[i] + (S[i] == S[i+1]);
-	}
-	cin >> q;
-	while(q--){
-		cin >> j >> k; j--;k--;
-		cout << A[k] - A[j] << endl;
+    ios_base::sync_with_stdio(0); cin.tie(0);
+    int m, n, j, i, t;
+    cin >> t;
+    while(t--){
+		cin >> n;
+		for(i = 0; i < n; i++){
+			for(j = 0; j < n; j++){
+				cin >> m;
+				M[m] = {i, j};
+			}
+		}
+		ll r = 0;
+		for(i = 2; i <= n*n; i++){
+			r += dist(M[i-1], M[i]);
+		}
+		cout << r << endl;
 	}
 }

@@ -14,44 +14,33 @@
 #define PB push_back
 #define MP make_pair
 #define all(x) x.begin(), x.end()
-
+#define hash sdkjfhwieuhoqihfqwekjfhqpqwe
 
 using namespace std;
-typedef long double ld; 	typedef unsigned long long ull; 
+typedef long double ld;		typedef unsigned long long ull; 
 typedef long long ll;		typedef pair<int, int> ii;
 typedef pair<int, ii> iii;	typedef vector<int> vi;
 typedef vector<ii> vii;		typedef vector<vi> vvi;
 typedef vector<ll> vll;		typedef vector<string> vs;
-typedef string string;		typedef set<int> si;
-const static int MAXN = 100001;
+typedef string string; 		typedef set<int> si;
+typedef set<ll> sll; 		typedef set<string> ss;
+const static int MAXN = 300;
 
 
-bool cmp(ii a, ii b){
-	return a.X - a.Y > b.X - b.Y;
-}
-
-int main(){
-	int n, i, g, j, a, b, p;
-	while(cin >> n >> g){
-		p = 0;
-		vii V;
-		for(i = 0; i < n; i++){
-			cin >> a >> b;
-			if(a <= b) V.PB({a, b});
-			else p += 3;
-		}
-		sort(all(V), cmp);
-		for(auto x : V){
-			int d = x.Y - x.X;
-			if(g < d) break;
-			g -= d;
-			if(!g) p++;
-			else {
-				g--;
-				p+=3;
-			}
-		}
-		cout << p << endl;
+int main() {
+	ios_base::sync_with_stdio(0); cin.tie(0);
+	ll t, n, i, P[MAXN], r;
+	P[0] = 1;
+	for(i = 1; i < MAXN; i++){
+		P[i] = P[i-1] * 5;
 	}
-	
+	cin >> t;
+	while(t--){
+		cin >> n;
+		r = 0;
+		for(i = 1; P[i] <= n; i++){
+			r += n / P[i];
+		}
+		cout << r << endl;
+	}
 }

@@ -9,49 +9,39 @@
 #define EL
 #endif
 
+#define EPS 1e-10
 #define X first
 #define Y second
 #define PB push_back
 #define MP make_pair
 #define all(x) x.begin(), x.end()
-
+#define hash losredondos
 
 using namespace std;
-typedef long double ld; 	typedef unsigned long long ull; 
+typedef long double ld;		typedef unsigned long long ull; 
 typedef long long ll;		typedef pair<int, int> ii;
 typedef pair<int, ii> iii;	typedef vector<int> vi;
 typedef vector<ii> vii;		typedef vector<vi> vvi;
 typedef vector<ll> vll;		typedef vector<string> vs;
-typedef string string;		typedef set<int> si;
-const static int MAXN = 100001;
+typedef string string; 		typedef set<int> si;
+typedef set<ll> sll; 		typedef set<string> ss;
+const static int MAXN = 10010;
 
-
-bool cmp(ii a, ii b){
-	return a.X - a.Y > b.X - b.Y;
-}
-
-int main(){
-	int n, i, g, j, a, b, p;
-	while(cin >> n >> g){
-		p = 0;
-		vii V;
-		for(i = 0; i < n; i++){
-			cin >> a >> b;
-			if(a <= b) V.PB({a, b});
-			else p += 3;
-		}
-		sort(all(V), cmp);
-		for(auto x : V){
-			int d = x.Y - x.X;
-			if(g < d) break;
-			g -= d;
-			if(!g) p++;
-			else {
-				g--;
-				p+=3;
+int main() {
+	ll n, i, a;
+	while(cin >> n, n != -1){
+		vll D;
+		a = 0;
+		for(i = 1; i < n; i++) if(n%i == 0) D.PB(i), a += i;
+		if(a == n){
+			cout << n << " = ";
+			for(i = 0; i < D.size(); i++){
+				if(i) cout << " + ";
+				cout << D[i];
 			}
+			cout << endl;
+		} else {
+			cout << n << " is NOT perfect.\n";
 		}
-		cout << p << endl;
 	}
-	
 }
