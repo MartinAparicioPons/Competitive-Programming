@@ -21,26 +21,33 @@ typedef long long ll;         typedef pair<ll, ll> ii;
 typedef pair<int, ii> iii;    typedef vector<int> vi;
 typedef vector<ii> vii;       typedef vector<vi> vvi;
 typedef vector<ll> vll;       typedef pair<string, string> ss;
-const static ll MX = 100100;
+const static ll MX = 1010;
 
+int P[MX], D[MX], n;
 
 int main() {
 	ios_base::sync_with_stdio(0); cin.tie(0);
-	set<int> A;
-	int t, n, a, i, j, b, c, D[MX];
-	cin >> t;
-	while(t--){
-		cin >> n;
-		for(i = 0; i < n; i++) cin >> D[i];
-		A.clear();
-		for(i = 0; i < n; i++){
-			if(A.lower_bound(D[i]) == A.begin()){
-				A.insert(D[i]);
-			} else {
-				A.erase(--A.lower_bound(D[i]));
-				A.insert(D[i]);
+	int i, j;
+	while(cin >> n){
+		memset(P,  0, sizeof P);
+		memset(D, -1, sizeof D);
+		for(i = 0; i < n; i++) cin >> P[i];
+		sort(P, P+n, greater<int>());
+		for(i = 0; i < n; i+=2){
+			D[i/2] = P[i] - P[i+1];
+		}
+		sort(D, D+n/2, greater<int>());
+		int a, b = -1;
+		for(i = 0; i <= n/2; i++){
+			a = 0;
+			for(j = 0; j < i; j++) a += D[j];
+			for(j = i; j < n/2; j++) a -= D[j];
+			if (a > 0) {
+				b = i;
+				break;
 			}
 		}
-		cout << A.size() << endl;
+		if(b == -1) cout << -1 << endl;
+		else 		cout << (n/2 - b) << endl;
 	}
 }

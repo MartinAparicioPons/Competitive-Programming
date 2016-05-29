@@ -21,26 +21,37 @@ typedef long long ll;         typedef pair<ll, ll> ii;
 typedef pair<int, ii> iii;    typedef vector<int> vi;
 typedef vector<ii> vii;       typedef vector<vi> vvi;
 typedef vector<ll> vll;       typedef pair<string, string> ss;
-const static ll MX = 100100;
+const static ll MX = 10000010;
 
+ll T[MX], DP[MX], tn;
+
+ll change(ll n){
+    if(n <= 0ll) return 0ll;
+    if(DP[n] == -1ll){
+        ll r = LLONG_MAX;
+        for(int i = 0; T[i] <= n; i++){
+            r = min(r, change(n - T[i]) + 1);
+            if(r == 3ll) break;
+        }
+        DP[n] = r;
+    }
+    return DP[n];
+}
 
 int main() {
-	ios_base::sync_with_stdio(0); cin.tie(0);
-	set<int> A;
-	int t, n, a, i, j, b, c, D[MX];
-	cin >> t;
-	while(t--){
-		cin >> n;
-		for(i = 0; i < n; i++) cin >> D[i];
-		A.clear();
-		for(i = 0; i < n; i++){
-			if(A.lower_bound(D[i]) == A.begin()){
-				A.insert(D[i]);
-			} else {
-				A.erase(--A.lower_bound(D[i]));
-				A.insert(D[i]);
-			}
+    ll n;
+    int i, j, k;
+    memset(DP, -1, sizeof DP);
+    for(i = 1, T[0] = 1; i < MX && T[i-1] + i + 1ll < MX; i++) T[i] = T[i-1] + i + 1ll;
+    tn = i;
+    for(i = 0; i < tn; i++){
+		DP[T[i]] = 1;
+		for(j = 0; j < tn; j++){
+			if(T[i] + T[j] < MX && DP[T[i] + T[j]] == -1) DP[T[i] + T[j]] = 2;
 		}
-		cout << A.size() << endl;
 	}
+	
+    while (cin >> n){
+        cout << change(n) << "\n";
+    }
 }

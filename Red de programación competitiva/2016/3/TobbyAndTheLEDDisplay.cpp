@@ -21,26 +21,31 @@ typedef long long ll;         typedef pair<ll, ll> ii;
 typedef pair<int, ii> iii;    typedef vector<int> vi;
 typedef vector<ii> vii;       typedef vector<vi> vvi;
 typedef vector<ll> vll;       typedef pair<string, string> ss;
-const static ll MX = 100100;
+const static int MX = 55000;
 
 
 int main() {
-	ios_base::sync_with_stdio(0); cin.tie(0);
-	set<int> A;
-	int t, n, a, i, j, b, c, D[MX];
-	cin >> t;
-	while(t--){
-		cin >> n;
-		for(i = 0; i < n; i++) cin >> D[i];
-		A.clear();
-		for(i = 0; i < n; i++){
-			if(A.lower_bound(D[i]) == A.begin()){
-				A.insert(D[i]);
-			} else {
-				A.erase(--A.lower_bound(D[i]));
-				A.insert(D[i]);
-			}
+	char d;
+	ll n, t, i, j;
+	while(cin >> n >> t >> d){
+		string S[3];
+		char Z[MX];
+		t = t % n;
+		if(d == 'L') t *= -1;
+		getline(cin, S[0]);
+		getline(cin, S[0]);
+		getline(cin, S[1]);
+		getline(cin, S[2]);
+		DB(S[0]);
+		DB(S[1]);
+		DBL(S[2]);
+		for(i = 1; i < S[1].size(); i+=2){
+			Z[(i/2 + t + n) % n] = S[1][i];
 		}
-		cout << A.size() << endl;
+		cout << S[0] << "\n|";
+		for(i = 0; i < n; i++){
+			cout << Z[i] <<'|';
+		}
+		cout << "\n" << S[2] << endl;
 	}
 }

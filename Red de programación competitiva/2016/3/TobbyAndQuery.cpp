@@ -21,26 +21,26 @@ typedef long long ll;         typedef pair<ll, ll> ii;
 typedef pair<int, ii> iii;    typedef vector<int> vi;
 typedef vector<ii> vii;       typedef vector<vi> vvi;
 typedef vector<ll> vll;       typedef pair<string, string> ss;
-const static ll MX = 100100;
+const static int MX = 100010;
 
 
 int main() {
-	ios_base::sync_with_stdio(0); cin.tie(0);
-	set<int> A;
-	int t, n, a, i, j, b, c, D[MX];
-	cin >> t;
-	while(t--){
-		cin >> n;
-		for(i = 0; i < n; i++) cin >> D[i];
-		A.clear();
-		for(i = 0; i < n; i++){
-			if(A.lower_bound(D[i]) == A.begin()){
-				A.insert(D[i]);
-			} else {
-				A.erase(--A.lower_bound(D[i]));
-				A.insert(D[i]);
-			}
+	int RSQ[11][MX], n, q, l, r, i, j;
+	while(cin >> n){
+		memset(RSQ, 0, sizeof RSQ);
+		for(i = 0; i < n; i++) {
+			cin >> l;
+			for(j = 0; j < 10; j++) RSQ[j][i+1] = RSQ[j][i] + (j == l);
 		}
-		cout << A.size() << endl;
+		cin >> q;
+		while(q--){
+			cin >> l >> r;
+			l--;
+			int a = 0;
+			for(i = 0; i < 10; i++){
+				a += RSQ[i][l] != RSQ[i][r];
+			}
+			cout << a << "\n";
+		}
 	}
 }

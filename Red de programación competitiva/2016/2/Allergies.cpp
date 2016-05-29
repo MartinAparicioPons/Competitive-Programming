@@ -21,26 +21,45 @@ typedef long long ll;         typedef pair<ll, ll> ii;
 typedef pair<int, ii> iii;    typedef vector<int> vi;
 typedef vector<ii> vii;       typedef vector<vi> vvi;
 typedef vector<ll> vll;       typedef pair<string, string> ss;
-const static ll MX = 100100;
+const static ll MX = 1100;
 
+bool has(string A, string B){
+	for(int i = 0; i < B.size(); i++){
+		bool ok = false;
+		for(int j = 0; j < A.size(); j++) if(A[j] == B[i]) ok = true;
+		if(!ok) return false;
+	}
+	return true;
+}
 
 int main() {
 	ios_base::sync_with_stdio(0); cin.tie(0);
-	set<int> A;
-	int t, n, a, i, j, b, c, D[MX];
+	string S[MX], Z;
+	int t, i, j, n;
 	cin >> t;
 	while(t--){
+		cin >> Z;
 		cin >> n;
-		for(i = 0; i < n; i++) cin >> D[i];
-		A.clear();
+		for(i = 0; i < n; i++) cin >> S[i];
+		bool sol = true;
+		set<char> K;
+		for(char c = 'A'; c <= 'Z'; c++) {
+			K.insert(c);
+		}
 		for(i = 0; i < n; i++){
-			if(A.lower_bound(D[i]) == A.begin()){
-				A.insert(D[i]);
+			if(has(S[i], Z)){
+				for(char c : K){
+					if(S[i].find(c) == string::npos){
+						K.erase(c);
+					}
+				}
 			} else {
-				A.erase(--A.lower_bound(D[i]));
-				A.insert(D[i]);
+				for(j = 0; j < S[i].size(); j++){
+					K.erase(S[i][j]);
+				}
 			}
 		}
-		cout << A.size() << endl;
+		if(K.size()) cout << (*K.begin()) << endl;
+		else cout << "No Solution\n";
 	}
 }

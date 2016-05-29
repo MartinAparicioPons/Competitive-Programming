@@ -21,26 +21,33 @@ typedef long long ll;         typedef pair<ll, ll> ii;
 typedef pair<int, ii> iii;    typedef vector<int> vi;
 typedef vector<ii> vii;       typedef vector<vi> vvi;
 typedef vector<ll> vll;       typedef pair<string, string> ss;
-const static ll MX = 100100;
+const static ll MX = 1000100;
 
+int P[MX];
+
+void sieve(){
+	int i, j;
+	for(i = 0; i < MX; i++) P[i] = i;
+	for(i = 2; i < MX; i++) if(P[i] == i){
+		for(j = i+i; j < MX; j+=i) 
+			P[j] = i;
+	}
+}
 
 int main() {
 	ios_base::sync_with_stdio(0); cin.tie(0);
-	set<int> A;
-	int t, n, a, i, j, b, c, D[MX];
-	cin >> t;
-	while(t--){
-		cin >> n;
-		for(i = 0; i < n; i++) cin >> D[i];
-		A.clear();
-		for(i = 0; i < n; i++){
-			if(A.lower_bound(D[i]) == A.begin()){
-				A.insert(D[i]);
-			} else {
-				A.erase(--A.lower_bound(D[i]));
-				A.insert(D[i]);
-			}
+	sieve();
+	int i, j, n;
+	while(cin >> n){
+		int m = 0;
+		if(n == 1) {
+			cout << 1 << endl;
+			continue;
 		}
-		cout << A.size() << endl;
+		while(n > 1){
+			m++;
+			n -= P[n];
+		}
+		cout << m << endl;
 	}
 }

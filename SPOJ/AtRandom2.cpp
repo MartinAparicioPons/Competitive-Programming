@@ -21,26 +21,25 @@ typedef long long ll;         typedef pair<ll, ll> ii;
 typedef pair<int, ii> iii;    typedef vector<int> vi;
 typedef vector<ii> vii;       typedef vector<vi> vvi;
 typedef vector<ll> vll;       typedef pair<string, string> ss;
-const static ll MX = 100100;
+const static ll MX = 100010;
 
 
 int main() {
-	ios_base::sync_with_stdio(0); cin.tie(0);
-	set<int> A;
-	int t, n, a, i, j, b, c, D[MX];
+	//ios_base::sync_with_stdio(0); cin.tie(0);
+	
+	int t, n, A[MX], i;
+	char B[MX];
 	cin >> t;
 	while(t--){
 		cin >> n;
-		for(i = 0; i < n; i++) cin >> D[i];
-		A.clear();
+		bool ok = true;
 		for(i = 0; i < n; i++){
-			if(A.lower_bound(D[i]) == A.begin()){
-				A.insert(D[i]);
-			} else {
-				A.erase(--A.lower_bound(D[i]));
-				A.insert(D[i]);
-			}
+			cin >> A[i] >> B[i];
 		}
-		cout << A.size() << endl;
+		for(i = 0; i < n-1; i++){
+			if(A[i] == A[i+1] || B[i] == B[i+1]) ok = false;
+		}
+		if(ok) cout << "B\n";
+		else cout << "M\n";
 	}
 }

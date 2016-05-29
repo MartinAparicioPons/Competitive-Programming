@@ -21,26 +21,44 @@ typedef long long ll;         typedef pair<ll, ll> ii;
 typedef pair<int, ii> iii;    typedef vector<int> vi;
 typedef vector<ii> vii;       typedef vector<vi> vvi;
 typedef vector<ll> vll;       typedef pair<string, string> ss;
-const static ll MX = 100100;
+const static ll MX = 1100;
 
 
 int main() {
 	ios_base::sync_with_stdio(0); cin.tie(0);
-	set<int> A;
-	int t, n, a, i, j, b, c, D[MX];
+	int RSQ[MX][MX], i, j, m, n, k, f, b, t;
+	char M[MX][MX];
 	cin >> t;
 	while(t--){
-		cin >> n;
-		for(i = 0; i < n; i++) cin >> D[i];
-		A.clear();
+		memset(RSQ, 0, sizeof RSQ);
+		cin >> n >> m >> k;
 		for(i = 0; i < n; i++){
-			if(A.lower_bound(D[i]) == A.begin()){
-				A.insert(D[i]);
-			} else {
-				A.erase(--A.lower_bound(D[i]));
-				A.insert(D[i]);
+			cin >> M[i];
+		}
+		while(k--){
+			ii x, y;
+			cin >> x.X >> x.Y >> y.X >> y.Y;
+			swap(x.X, x.Y);
+			swap(y.X, y.Y);
+			x.X = n + 1 - x.X;
+			y.X = n + 1 - y.X;
+			for(i = y.X; i <= x.X; i++){
+				RSQ[i][x.Y]++;
+				RSQ[i][y.Y+1]--;
 			}
 		}
-		cout << A.size() << endl;
+		int r = b = 0;
+		for(i = 0; i <= n+1; i++){
+			for(j = 1; j <= m+1; j++){
+				RSQ[i][j] += RSQ[i][j-1];
+			}
+		}
+		for(i = 1; i <= n; i++) for(j = 1; j <= m; j++){			
+			if(RSQ[i][j] > 0){
+				r += M[i-1][j-1] == 'R';
+				b += M[i-1][j-1] == 'B';
+			}
+		}
+		cout << b << " " << r << endl;
 	}
 }
