@@ -32,13 +32,6 @@ const static ll MX = 1010, MOD = 9999991;
 ll F[MX][MX];
 int A[MX], L[MX], R[MX];
 
-ll f(ll x, ll y){
-	if(F[x][y] == -1){
-		F[x][y] = (f(x-1, y) + f(x, y-1)) % MOD;
-	}
-	return F[x][y];
-}
-
 pair<ll, int> r(int i){
 	if(i == -1) return {0, 0};
 	if(L[i] == -1 && R[i] == -1) return {1, 1};
@@ -52,7 +45,7 @@ pair<ll, int> r(int i){
 	}
 	// Both childs
 	ii a = r(L[i]), b = r(R[i]);
-	return {(((a.X * b.X) % MOD) * f(a.Y, b.Y)) % MOD, a.Y + b.Y + 1};
+	return {(((a.X * b.X) % MOD) * F[a.Y][b.Y]) % MOD, a.Y + b.Y + 1};
 }
 
 int main(){
@@ -63,6 +56,11 @@ int main(){
 	for(i = 2; i < MX; i++) {
 		F[i][1] = i+1;
 		F[1][i] = i+1;
+	}
+	for(i = 2; i < MX; i++){
+		for(j = 2; j < MX; j++){
+			F[i][j] = F[i-1][j] + F[i][j-1];
+		}
 	}
 	
 	cin >> t;
